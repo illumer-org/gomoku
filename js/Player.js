@@ -1,13 +1,15 @@
 // Agents that represent either a player or an AI
 function Player(color){
     this.color = color;
+    
+    if(color=="black") this.translatedColor="黑方"
+    else if(color=="white") this.translatedColor="白方"
+    else this.translatedColor="某高手"
 }
 
 Player.prototype.myTurn = function(){
     this.game.setCurrentColor(this.color);
-    gameInfo.setText((function(string){
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    })(this.color)+"'s turn.");
+    gameInfo.setText((this.translatedColor)+"执棋");
     gameInfo.setColor(this.color);
     gameInfo.setBlinking(false);
 };
@@ -28,7 +30,7 @@ HumanPlayer.prototype.myTurn = function(){
     Player.prototype.myTurn.call(this);
     this.game.toHuman(this.color);
     if(this.other instanceof AIPlayer){
-        gameInfo.setText('您的回合');
+        gameInfo.setText('您执棋');
     }
 };
 
